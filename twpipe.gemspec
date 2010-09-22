@@ -30,7 +30,8 @@ Gem::Specification.new do |s|
      "spec/data/config/syntax_error.yml",
      "spec/data/config/valid.yml",
      "spec/lib/twpipe_spec.rb",
-     "spec/spec.opts"
+     "spec/spec.opts",
+     "twpipe.gemspec"
   ]
   s.homepage = %q{http://github.com/koshigoe/twpipe}
   s.rdoc_options = ["--charset=UTF-8"]
