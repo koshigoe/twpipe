@@ -21,7 +21,7 @@ Usage:
       % cat <<EOF | #{File.basename($0)}
       some messages
       by multilines.
-      At twitter, this message is shown single line.
+      At twitter, these messages are shown single line.
       EOF
 
 Options:
