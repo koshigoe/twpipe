@@ -1,0 +1,6 @@
+ctoken: "..."
+csecret: "..."
+atoken: "..."
+asecret: "..."
+name: "..."
+invalid field(disallowed in YAML)

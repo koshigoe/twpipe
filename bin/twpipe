@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'twpipe'
+require 'optparse'
+
+options = {}
+ARGV.options do |opt|
+  opt.version = '0.0.0'
+  opt.banner = <<EOF
+This is a simply Twitter Command-Line client.
+
+  http://github.com/koshigoe/twpipe
+
+Usage:
+
+    1) tweet simply
+      % #{File.basename($0)} [options] some message
+
+    2) tweet from stdin
+      % cat <<EOF | #{File.basename($0)}
+      some messages
+      by multilines.
+      At twitter, this message is shown single line.
+      EOF
+
+Options:
+
+EOF
+
+  opt.on('-c CONFIG_FILE', '--config CONFIG_FILE', 'path to configuration file') {|v| options['config_path'] }
+
+  opt.permute!
+end
+
+if ARGV.size > 0
+  message = ARGV.join(' ')
+else
+  message = ''
+  while buffer = gets
+    message << buffer
+  end
+end
+
+begin
+  Twpipe.config_path = options['config_path'] if options['config_path']
+  pipe = Twpipe.new
+  pipe.tweet(message)
+rescue Twpipe::ConfigError => e
+  puts e.message
+end
