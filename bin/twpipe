@@ -6,7 +6,7 @@ require 'optparse'
 
 options = {}
 ARGV.options do |opt|
-  opt.version = '0.0.0'
+  opt.version = Twpipe::VERSION
   opt.banner = <<EOF
 This is a simply Twitter Command-Line client.
 
@@ -28,7 +28,7 @@ Options:
 
 EOF
 
-  opt.on('-c CONFIG_FILE', '--config CONFIG_FILE', 'path to configuration file') {|v| options['config_path'] }
+  opt.on('-c CONFIG_FILE', '--config CONFIG_FILE', 'path to configuration file') {|v| options['config_path'] = File.expand_path(v) }
 
   opt.permute!
 end
@@ -44,6 +44,7 @@ end
 
 begin
   Twpipe.config_path = options['config_path'] if options['config_path']
+  p Twpipe.config_path
   pipe = Twpipe.new
   pipe.tweet(message)
 rescue Twpipe::ConfigError => e
