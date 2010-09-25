@@ -67,10 +67,11 @@ EOF
     let(:twitter) { mock('Twitter:Base') }
 
     it 'should receive Twitter::Base#update' do
+      message = 'a' * 141
       Twpipe.config_path = File.join(File.dirname(__FILE__), '../data/config/valid.yml')
       twpipe = Twpipe.new
-      twpipe.instance_variable_get(:@client).should_receive(:update).with('message')
-      twpipe.tweet('message')
+      twpipe.instance_variable_get(:@client).should_receive(:update).with(message)
+      twpipe.tweet(message).should == 'a' * 140
     end
   end
 end

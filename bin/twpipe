@@ -29,6 +29,7 @@ Options:
 EOF
 
   opt.on('-c CONFIG_FILE', '--config CONFIG_FILE', 'path to configuration file') {|v| options['config_path'] = File.expand_path(v) }
+  opt.on('-e [PREFIX]', '--echo-back [PREFIX]', 'echo back your tweet with prefix.') {|v| options['echo_back_with_prefix'] = v }
 
   opt.permute!
 end
@@ -45,7 +46,10 @@ end
 begin
   Twpipe.config_path = options['config_path'] if options['config_path']
   pipe = Twpipe.new
-  pipe.tweet(message)
+  tweet = pipe.tweet(message)
+  if options['echo_back_with_prefix']
+    puts "%s%s" % [options['echo_back_with_prefix'], tweet]
+  end
 rescue Twpipe::ConfigError => e
   puts e.message
 end

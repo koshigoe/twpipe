@@ -5,6 +5,8 @@ require 'twpipe/version'
 # == Twpipe
 #
 class Twpipe
+  MAX_TWEET_LENGTH = 140
+
   class ConfigError < Exception; end
 
   class << self
@@ -28,8 +30,12 @@ class Twpipe
   #
   # message: string variable that you would tweet
   #
+  # return:
+  # * message that truncated first MAX_TWEET_LENGTH characters
+  #
   def tweet(message)
     @client.update(message)
+    message.split(//).first(MAX_TWEET_LENGTH).join
   end
 
 private
