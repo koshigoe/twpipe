@@ -44,7 +44,6 @@ end
 
 begin
   Twpipe.config_path = options['config_path'] if options['config_path']
-  p Twpipe.config_path
   pipe = Twpipe.new
   pipe.tweet(message)
 rescue Twpipe::ConfigError => e
